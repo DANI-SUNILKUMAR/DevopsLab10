@@ -1,19 +1,13 @@
-# azure-pipelines.yml
+<<<<<<< HEAD
+# Your local pipeline config
 trigger:
-  - main  # or master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean test'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    testRunTitle: 'Maven Unit Tests'
+  branches:
+    include:
+      - main
+=======
+# Remote pipeline config from GitHub
+trigger:
+  branches:
+    include:
+      - master
+>>>>>>> origin/main
