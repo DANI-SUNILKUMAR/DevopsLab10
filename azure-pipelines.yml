@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-# Your local pipeline config
 trigger:
   branches:
     include:
       - main
+<<<<<<< HEAD
 =======
 # Remote pipeline config from GitHub
 trigger:
@@ -66,3 +65,45 @@ steps:
     artifactName: 'drop'  # Name of the artifact to be published
     targetPath: '$(Build.ArtifactStagingDirectory)'  # Directory where artifacts will be stored
 ``
+=======
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Checkout@2
+    displayName: 'Checkout code'
+
+  - task: UseJavaToolInstaller@1
+    displayName: 'Set up JDK 11'
+    inputs:
+      versionSpec: '11'
+
+  - task: UseMaven@4
+    displayName: 'Set up Maven'
+    inputs:
+      mavenVersion: '3.x'
+
+  - task: Maven@3
+    displayName: 'Build with Maven'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install'
+
+  - task: Maven@3
+    displayName: 'Run Unit Tests'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'test'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: '**/target/test-*.xml'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Artifacts'
+    inputs:
+      artifactName: 'drop'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+>>>>>>> 5dd3fbe (Normalize line endings)
